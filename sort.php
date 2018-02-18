@@ -1,8 +1,8 @@
 <?php
 
 /**
- * Created-by = Alberto Kato.
- * Created-on = February 17th, 2018.
+ * @author    <[<albertokatojr@gmail.com>]> Alberto Kato.
+ * @createdOn  February 17th, 2018.
  */
 
 class Sort {
@@ -114,6 +114,57 @@ class Sort {
 		}
 	}
 
+
+	/**
+	 * insertionSort
+	 * @param  Array &$arrayToSort
+	 * @param  String $order      ascending || descending
+	 * @return Bool               true || false
+	 */
+	public function insertionSort(&$arrayToSort, $order = self::ASCENDING_ORDER)
+	{
+		if (!empty($arrayToSort) && is_array($arrayToSort)) {
+			
+			if ($order == self::ASCENDING_ORDER) {
+
+				for ($i=1; $i < count($arrayToSort) ; $i++) { 
+					
+					$aux = $arrayToSort[$i];
+					$j = $i; 
+
+					while (($j > 0) && ($arrayToSort[$j-1] > $aux)) {
+						
+						$arrayToSort[$j] = $arrayToSort[$j-1];
+						$j--;
+					}
+
+					$arrayToSort[$j] = $aux;
+				}
+			}
+			else {
+				//DESCENDING_ORDER
+				for ($i=1; $i < count($arrayToSort) ; $i++) { 
+					
+					$aux = $arrayToSort[$i];
+					$j = $i; 
+
+					while (($j > 0) && ($arrayToSort[$j-1] < $aux)) {
+						
+						$arrayToSort[$j] = $arrayToSort[$j-1];
+						$j--;
+					}
+
+					$arrayToSort[$j] = $aux;
+				}	
+			}
+		}
+		else {
+			echo "Invalid parameter.";
+			return false;	
+		}
+
+		return true;
+	}
 }
 
 $numbers = [89,4,55,90,84,33,1];
@@ -124,13 +175,13 @@ echo "<pre>";
 print_r($numbers);
 echo "</pre>";
 
-var_dump($sort->selectionSort($numbers));
+var_dump($sort->insertionSort($numbers));
 
 echo "<pre>";
 print_r($numbers);
 echo "</pre>";
 
-var_dump($sort->selectionSort($numbers,Sort::DESCENDING_ORDER));
+var_dump($sort->insertionSort($numbers,Sort::DESCENDING_ORDER));
 
 echo "<pre>";
 print_r($numbers);
